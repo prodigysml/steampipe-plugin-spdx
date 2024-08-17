@@ -1,4 +1,17 @@
-# steampipe-plugin-spdx
+# Steampipe Plugin spdx
+
+This repository contains a steampipe plugin that parses spdx files and allows for easier searching.
+
+## Requirements
+
+* Golang (tested on 1.22.5)
+* Steampipe
+
+## Installation
+
+```bash
+task install
+```
 
 ## Example Query
 
@@ -17,7 +30,18 @@ join
 on
     f.path = p.file_path
 where
-    f.directory = './' and
-    p.directory = './';
+    f.directory = './examples' and
+    p.directory = './examples';
 ```
 
+## Test
+
+```bash
+task test
+```
+
+## Uninstall
+
+```bash
+task clean
+```

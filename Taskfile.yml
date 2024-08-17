@@ -1,0 +1,19 @@
+version: '3'
+
+tasks:
+  install:
+    cmds:
+      - mkdir -p ~/.steampipe/plugins/local/spdx/
+      - go build -o  ~/.steampipe/plugins/local/spdx/spdx.plugin *.go
+      - mkdir -p ~/.steampipe/config/
+      - cp spdx.spc ~/.steampipe/config/
+
+  clean:
+    cmds:
+      - rm ~/.steampipe/plugins/local/spdx/spdx.plugin
+      - rm ~/.steampipe/config/spdx.spc
+
+  test:
+    deps: [install]
+    cmds:
+      - steampipe query "select f.path as spdx_file_path, f.document_name, p.package_name, p.package_version, p.package_supplier, p.package_download_location from spdx_file f join spdx_package p on f.path = p.file_path where f.directory = './examples' and p.directory = './examples'"
